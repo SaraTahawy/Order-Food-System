@@ -50,7 +50,7 @@ After that, open in browser:
 
 ## 📁 Folder Structure
 
-
+```
 EasyOrder/
 ├── public/ → Frontend files (HTML, CSS, JS)
 │   ├── index.html → User page
@@ -61,7 +61,7 @@ EasyOrder/
 ├── package.json → Project dependencies
 ├── menu.json → Menu items
 └── orders.json → Saved orders
-
+```
 
 ---
 
