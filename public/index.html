@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أطلب أوردر</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <h1>اطلب الفطار 🍟🍔</h1>
+
+  <div id="sessionMessage" style="margin-bottom: 20px; font-weight: bold;"></div>
+
+  <form id="orderForm">
+    <div class="name-container">
+      <input type="text" id="firstName" placeholder="اسمك الأول">
+      <input type="text" id="lastName" placeholder="اسمك التاني">
+    </div>
+
+    <div id="menuItemsContainer"></div>
+
+    <textarea id="note" placeholder="اكتب ملاحظة (اختياري)" rows="3" style="width: 100%; margin-top: 10px;"></textarea>
+
+    <div class="order-buttons">
+      <div class="btn-row">
+        <button type="submit" class="btn-confirm">✅ تأكيد الطلب</button>
+        <button type="button" class="btn-cancel" onclick="cancelOrder()">❌ إلغاء الأوردر</button>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn-edit" onclick="enableEdit()">✏️ تعديل الأوردر</button>
+        <button type="button" class="btn-check" onclick="checkIfHasOrder()">🔍 هل عندي أوردر؟</button>
+      </div>
+    </div>
+
+    <div id="checkMessage" style="margin-top: 10px; font-weight: bold;"></div>
+  </form>
+
+  <div id="successMessage" style="margin-top: 15px; font-weight: bold;"></div>
+
+  <footer class="custom-footer">
+    💻 Designed & Developed by <strong>Eng. Sara Tahawy</strong> | &copy; 2025
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

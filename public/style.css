@@ -1,0 +1,860 @@
+/* ✅ استيراد الخط */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap");
+
+/* ✅ إعدادات أساسية لكل العناصر */
+* {
+  box-sizing: border-box;
+}
+
+/* ✅ إعدادات عامة للصفحة */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome و Safari */
+}
+
+/* ✅ جسم الصفحة */
+body {
+  direction: rtl; /* من اليمين لليسار */
+  font-family: "Cairo", sans-serif;
+  color: #333;
+  padding: 20px;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ الحاوية الأساسية لكل المحتوى */
+.page-container {
+  flex: 1; /* علشان تملى المساحة المتبقية */
+}
+
+/* ✅ تنسيق العناوين */
+h1,
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+/* ✅ تنسيق الأزرار العامة */
+button {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  margin: 6px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ زر داخل رابط */
+a button {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+
+a button:hover {
+  background: linear-gradient(45deg, #27ae60, #1e8449);
+}
+
+/* ✅ الفورم */
+form {
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: auto;
+}
+
+/* ✅ زر الفورم */
+form button {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  font-size: 18px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.order-buttons {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 12px;
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-row button {
+  flex: 1 1 45%;
+  min-width: 120px; /* ✅ يقلل من عرض الزر في الموبايل */
+  max-width: 220px;
+  font-size: 15px;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ ألوان كل زر نفس اللي عملناه قبل */
+.btn-confirm {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+}
+.btn-confirm:hover {
+  background: linear-gradient(45deg, #27ae60, #1e8449);
+}
+
+.btn-cancel {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+}
+.btn-cancel:hover {
+  background: linear-gradient(45deg, #c0392b, #a93226);
+}
+
+.btn-edit {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+}
+.btn-edit:hover {
+  background: linear-gradient(45deg, #2980b9, #2471a3);
+}
+
+.btn-check {
+  background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+}
+.btn-check:hover {
+  background: linear-gradient(45deg, #7f8c8d, #636e72);
+}
+
+/* ✅ تنسيق مدخلات الاسم */
+.name-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.name-container input {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* ✅ الحقول العامة */
+input,
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0 20px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: 0.3s ease-in-out;
+  background: #fefefe;
+  box-sizing: border-box;
+}
+
+/* ✅ عند التركيز على الحقول */
+input:focus,
+textarea:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.2);
+}
+
+/* ✅ تكبير خانة الكتابة */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ✅ إعدادات منطقة المنيو */
+.menu-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 30px auto;
+  max-width: 700px;
+  align-items: center;
+}
+
+/* ✅ حقل المنيو */
+.menu-controls input {
+  flex: 1 1 200px;
+}
+
+/* ✅ قائمة المنيو */
+#menuList {
+  padding: 0;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+#menuList li {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* ✅ أزرار المنيو */
+#menuList button {
+  margin-right: 10px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#menuList button:hover {
+  background-color: #bbb;
+}
+
+/* ✅ كروت الطلبات */
+.orders-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 30px auto;
+}
+
+.order-card {
+  background: #fffdf7;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  text-align: center;
+}
+
+.summary-card {
+  background: #fcf3cf;
+  border: 2px dashed #f39c12;
+}
+
+.orders-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ✅ تحكمات الجلسة (الأدمن) */
+/* ✅ حاوية زرارين الجلسة */
+/* زرارين السيشن (ابدأ / اقفل) */
+.session-controls.main-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 25px 0;
+  flex-wrap: nowrap; /* دايمًا جنب بعض */
+}
+
+.session-controls.main-buttons button {
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  white-space: nowrap;
+}
+
+.session-controls .open-session {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+}
+
+.session-controls .close-session {
+  background: linear-gradient(45deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.session-controls.main-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* زراير اللينكات (CSV / أوردر / المنيو) */
+.session-controls.link-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: nowrap; /* ✅ علشان يبقوا جنب بعض */
+  padding: 0 15px; /* ✅ يمنعهم يلتصقوا في أطراف الشاشة */
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.session-controls.link-buttons a {
+  flex: 1;
+  max-width: 200px;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.session-controls.link-buttons a button {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 10px;
+  white-space: nowrap;
+  text-decoration: none; /* ✅ يمنع الخط */
+  box-sizing: border-box;
+}
+
+/* ✅ الرسائل */
+#successMessage,
+#checkMessage,
+#sessionMessage {
+  font-weight: bold;
+  text-align: center;
+  font-size: 17px;
+  margin-top: 15px;
+}
+
+/* ✅ شكل كل عنصر في المنيو */
+/* ✅ صف الصنف */
+.menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* ✅ اسم الصنف */
+.item-label {
+  flex: 1;
+  font-size: 16px;
+  text-align: right;
+}
+
+/* ✅ مربع البلس والماينص */
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* ✅ زر البلس والماينص */
+.qty-btn {
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.qty-btn:hover {
+  background-color: #ccc;
+}
+
+/* ✅ الرقم بين البلس والماينص */
+.qty-value {
+  font-size: 15px;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* ✅ زر الرجوع */
+#adminBackBtn {
+  background: linear-gradient(45deg, #34495e, #2c3e50);
+  color: white;
+  padding: 12px 26px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+.admin-back-container {
+  text-align: center;
+}
+
+#adminBackBtn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #2c3e50, #1c2833);
+}
+
+/* ✅ زر الإضافة */
+#addItemBtn {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 50px;
+  padding: 0 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  align-self: stretch;
+}
+
+#addItemBtn:hover {
+  background: linear-gradient(45deg, #27ae60, #1e8449);
+  transform: scale(1.04);
+}
+
+/* ✅ الفوتر */
+.custom-footer {
+  text-align: center;
+  margin-top: auto;
+  padding: 12px 8px;
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  color: #444;
+  font-size: 14.5px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  border-top: 1px solid #ccc;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+
+  white-space: nowrap; /* ✅ ممنوع الكسر */
+  overflow: visible; /* ✅ ميخبيش الكلام */
+  text-overflow: clip; /* ✅ ميقصش الكلام */
+}
+
+.custom-footer strong {
+  color: #c62828;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.custom-footer strong:hover {
+  color: #b71c1c;
+  cursor: pointer;
+}
+
+/* ✅ الريسبونسف للشاشات الصغيرة */
+
+/* ✅ ميديا كويري للشاشات الأصغر من 768px */
+@media (max-width: 767px) {
+  /* ✅ تقليل البادينج العام للصفحة */
+  body {
+    padding: 10px;
+  }
+
+  /* ✅ جعل الفورم والمنيو والطلبات تاخد عرض كامل مع بادينج أقل */
+  form,
+  .orders-box,
+  .menu-controls {
+    padding: 10px;
+    width: 100%;
+  }
+
+  /* ✅ تصغير حجم الخط وتكبير البادينج للحقول */
+  input,
+  textarea {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* ✅ تصغير الأزرار وتوسيعها لعرض الصفحة */
+  button {
+    font-size: 15px;
+    width: 100%;
+  }
+
+  /* ✅ جعل المنيو عمودية بدل أفقية */
+  .menu-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* ✅ جعل عناصر المنيو فوق بعض */
+  #menuList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* ✅ جعل زر الرابط ياخد عرض كامل */
+  a button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* ✅ تصغير العناوين */
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  /* ✅ تصغير الفوتر */
+  .custom-footer {
+    font-size: 13.5px;
+  }
+
+  .menu-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+  }
+
+  .menu-controls input {
+    font-size: 15px;
+    padding: 10px;
+    width: 180px;
+  }
+
+  #addItemBtn {
+    font-size: 15px;
+    padding: 10px 16px;
+    white-space: nowrap;
+    width: auto;
+  }
+
+  #menuList li {
+    padding: 12px 15px;
+    font-size: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #menuList button {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  .admin-back-container a button {
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
+}
+
+/* ✅ ميديا كويري للشاشات الأصغر من 600px */
+@media (max-width: 600px) {
+  .menu-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-list button {
+    margin-top: 8px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  input,
+  textarea,
+  button {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .order-card,
+  form {
+    padding: 15px;
+    margin: 10px auto;
+  }
+
+  #addItemBtn {
+    height: auto;
+    width: 100%;
+    padding: 12px;
+  }
+
+  .menu-controls {
+    gap: 8px;
+    margin: 10px 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .custom-footer {
+    font-size: 13px;
+    padding: 12px 5px;
+    white-space: normal; /* ✅ يخلي الكلام يكمل وما يتقطعش */
+    line-height: 1.6;
+  }
+
+  .menu-list li span,
+  .menu-list button {
+    width: 100%;
+    text-align: right;
+  }
+
+  .menu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap; /* ✅ يمنع الكسر */
+    gap: 10px;
+  }
+
+  .item-label {
+    flex: 1;
+    font-size: 15px;
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .qty-controls {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .qty-btn {
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    min-width: 28px;
+    height: 32px;
+  }
+
+  .qty-value {
+    font-size: 14px;
+    min-width: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .session-controls.link-buttons {
+    justify-content: center;
+  }
+
+  .session-controls.link-buttons a:nth-child(1),
+  .session-controls.link-buttons
+    a:nth-child(2)
+    .session-controls.link-buttons
+    a:nth-child(3) {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  .session-controls.link-buttons a button {
+    width: auto;
+  }
+
+  .menu-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .menu-controls input {
+    flex: 1 1 40%;
+    min-width: 130px;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  #menuList li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #menuList li div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+    gap: 8px;
+  }
+
+  #menuList li button {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 13px;
+    text-align: center; /* ✅ يخلي الكلمة في النص */
+    justify-content: center; /* ✅ لو فيه flex داخل الزر */
+    display: flex; /* ✅ لضمان التوسيط العمودي والأفقي */
+    align-items: center;
+  }
+
+  #addItemBtn {
+    flex: 1 1 100%;
+    max-width: 150px;
+    font-size: 14px;
+    padding: 10px 14px;
+    align-self: center;
+  }
+
+  .admin-back-container a button {
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    max-width: 180px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .admin-back-container a {
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 400px) {
+  .custom-footer {
+    font-size: 12px;
+    padding: 10px 5px;
+  }
+}
+
+@media (max-width: 375px) {
+  .menu-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .item-label {
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .qty-controls {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .qty-btn {
+    font-size: 13px;
+    padding: 6px 8px;
+    flex: 1;
+    min-width: 28px;
+  }
+
+  .qty-value {
+    font-size: 13px;
+    text-align: center;
+    min-width: 20px;
+  }
+}
+
+@media (max-width: 350px) {
+  .btn-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .btn-row button {
+    flex: 1 1 48%;
+    min-width: 100px;
+    font-size: 13px;
+    padding: 10px 10px;
+  }
+
+  .custom-footer {
+    font-size: 10px;
+    padding: 8px 4px;
+  }
+
+  .qty-btn {
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    min-width: 26px;
+    height: 30px;
+  }
+}
+@media (max-width: 320px) {
+  .session-controls.link-buttons {
+    flex-wrap: wrap; /* يسمح بالتفاف الزرار التالت */
+    justify-content: center;
+  }
+
+  .session-controls.link-buttons a:nth-child(1),
+  .session-controls.link-buttons a:nth-child(2) {
+    flex: 1 1 45%; /* كل واحد فيهم نص العرض تقريبا */
+    display: flex;
+    justify-content: center;
+  }
+
+  .session-controls.link-buttons a:nth-child(3) {
+    flex: 1 1 100%; /* ينزل لتحت */
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  .session-controls.link-buttons a button {
+    min-width: 100px;
+  }
+}

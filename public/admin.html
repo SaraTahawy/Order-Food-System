@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة المشرف</title>
+  <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+  <div class="page-container">
+    <h1>إدارة الطلبات 😎</h1>
+
+    <!-- ✅ زراير الجلسة -->
+    <div class="session-controls main-buttons">
+      <button class="open-session" onclick="startSession()">🚀 ابدأ الطلبات</button>
+      <button class="close-session" onclick="stopSession()">🛑 اقفل الطلبات</button>
+    </div>
+
+    <!-- ✅ زراير التنقل -->
+    <div class="session-controls link-buttons">
+      <a href="/export"><button>تحميل CSV</button></a>
+      <a href="/index.html"><button>أطلب أوردر</button></a>
+      <a href="/menu.html"><button>إدارة المنيو</button></a>
+    </div>
+
+
+
+    <div id="orders" class="orders-box"></div>
+
+  </div>
+
+
+
+
+  <footer class="custom-footer">
+    💻 Designed & Developed by <strong>Eng. Sara Tahawy</strong> | &copy; 2025
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="admin.js"></script>
+
+
+</body>
+
+</html>

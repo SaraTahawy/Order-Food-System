@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة المنيو</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+  <div class="page-container">
+    <h1>إدارة المنيو 🍽️</h1>
+    <div class="admin-back-container">
+      <a href="/admin.html"><button id="adminBackBtn">رجوع للوحة التحكم 🔙</button></a>
+    </div>
+    <div class="menu-controls">
+      <input type="text" id="itemName" placeholder="اسم الصنف">
+      <input type="number" id="itemPrice" placeholder="السعر">
+      <button id="addItemBtn" onclick="addItem()">إضافة صنف ➕</button>
+    </div>
+
+    <h2>الأصناف الحالية:</h2>
+    <ul id="menuList" class="menu-list"></ul>
+
+  </div>
+
+
+
+  <footer class="custom-footer">
+    💻 Designed & Developed by <strong>Eng. Sara Tahawy</strong> | &copy; 2025
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="menu.js"></script>
+</body>
+
+</html>
