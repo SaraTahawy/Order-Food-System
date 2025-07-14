@@ -1,139 +1,103 @@
-async function fetchMenu() {
-  const res = await fetch("/menu");
-  const menu = await res.json();
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLzvoKFTIrQ4AJk_2dTnox1HcZTh90FRzxDjoVmA5gsVqV7da7eZ-RPZDLwx3V2VrPRA/exec";
 
-  let result = "";
-  for (const [item, price] of Object.entries(menu)) {
-    result += `
-    <li>
-      <span>${item} - ${price} جنيه</span>
-      <div>
-        <button onclick="editItem('${item}', ${price})">✏️ تعديل</button>
-        <button onclick="deleteItem('${item}')">🗑️ حذف</button>
-      </div>
-    </li>`;
+// تحميل المنيو من Google Sheets
+async function loadMenu() {
+  try {
+    const res = await fetch(`${SCRIPT_URL}?action=menu`);
+    const menu = await res.json();
+    displayMenu(menu);
+  } catch (error) {
+    Swal.fire("❌ خطأ", "فشل في تحميل المنيو", "error");
   }
-
-  document.getElementById("menuList").innerHTML = result;
 }
 
-async function addItem() {
-  const name = document.getElementById("itemName").value.trim();
-  const price = +document.getElementById("itemPrice").value;
+// عرض الأصناف في القائمة
+function displayMenu(menu) {
+  const menuList = document.getElementById("menuList");
+  menuList.innerHTML = "";
 
-  if (!name || price <= 0) {
-    return Swal.fire("❌ اكتب اسم وسعر صحيح", "", "error");
-  }
-
-  const result = await Swal.fire({
-    title: "تأكيد الإضافة",
-    text: `هل أنت متأكد من إضافة الصنف "${name}" بسعر ${price} جنيه؟`,
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "نعم، أضف",
-    cancelButtonText: "لا، رجوع",
+  Object.entries(menu).forEach(([item, price]) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span><strong>${item}</strong> - ${price}ج</span>
+      <button onclick="editItem('${item}', ${price})">✏️ تعديل</button>
+      <button onclick="deleteItem('${item}')">🗑 حذف</button>
+    `;
+    menuList.appendChild(li);
   });
+}
 
-  if (!result.isConfirmed) {
-    Swal.fire("❌ الإضافة ملغية", "", "info");
+// إضافة أو تعديل صنف
+async function addItem() {
+  const item = document.getElementById("itemName").value.trim();
+  const price = parseFloat(document.getElementById("itemPrice").value);
+
+  if (!item || isNaN(price)) {
+    Swal.fire("❌ من فضلك اكتب اسم وسعر صحيح", "", "warning");
     return;
   }
 
-  await fetch("/menu", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ item: name, price }),
-  });
+  try {
+    const res = await fetch(`${SCRIPT_URL}?action=menu`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item, price })
+    });
 
-  document.getElementById("itemName").value = "";
-  document.getElementById("itemPrice").value = "";
-  fetchMenu();
-}
-async function addItem() {
-  const name = document.getElementById("itemName").value.trim();
-  const price = +document.getElementById("itemPrice").value;
-
-  if (!name || price <= 0) {
-    return Swal.fire("❌ اكتب اسم وسعر صحيح", "", "error");
+    const data = await res.json();
+    if (res.ok) {
+      Swal.fire("✅ تم إضافة/تعديل الصنف", `${item} = ${price}ج`, "success");
+      document.getElementById("itemName").value = "";
+      document.getElementById("itemPrice").value = "";
+      loadMenu();
+    } else {
+      Swal.fire("❌ خطأ", data.message || "فشل في العملية", "error");
+    }
+  } catch (err) {
+    Swal.fire("❌ خطأ في الاتصال", "", "error");
   }
-
-  const result = await Swal.fire({
-    title: "تأكيد الإضافة",
-    text: `هل أنت متأكد من إضافة الصنف "${name}" بسعر ${price} جنيه؟`,
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonText: "نعم، أضف",
-    cancelButtonText: "لا، رجوع",
-  });
-  if (!result.isConfirmed) return;
-
-  await fetch("/menu", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ item: name, price }),
-  });
-
-  document.getElementById("itemName").value = "";
-  document.getElementById("itemPrice").value = "";
-  fetchMenu();
 }
 
-// ✅ حذف صنف
-async function deleteItem(name) {
-  const result = await Swal.fire({
-    title: "تأكيد الحذف",
-    text: `هل أنت متأكد من حذف ${name}؟`,
+// حذف صنف
+async function deleteItem(item) {
+  const confirm = await Swal.fire({
+    title: `هل أنت متأكد من حذف "${item}"؟`,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "نعم، حذف",
-    cancelButtonText: "لا، رجوع",
+    confirmButtonText: "نعم، احذفه",
+    cancelButtonText: "إلغاء"
   });
 
-  if (!result.isConfirmed) return; // ✅ خروج بدون رسالة عند الإلغاء
+  if (!confirm.isConfirmed) return;
 
-  await fetch("/menu", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ item: name }),
-  });
+  try {
+    const res = await fetch(`${SCRIPT_URL}?action=delete-menu`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ item })
+    });
 
-  Swal.fire("✅ تم الحذف", "", "success");
-  fetchMenu();
-}
-
-// تعديل صنف
-async function editItem(name, oldPrice) {
-  const result = await Swal.fire({
-    title: `تعديل سعر ${name}`,
-    input: "number",
-    inputValue: oldPrice,
-    confirmButtonText: "تأكيد",
-    cancelButtonText: "إلغاء",
-    showCancelButton: true,
-    inputValidator: (value) => {
-      if (!value || value <= 0) return "❌ اكتب سعر صحيح";
-    },
-  });
-
-  if (!result.isConfirmed) return;
-
-  const newPrice = +result.value;
-
-  // ✅ لو السعر زي ما هو، بلغ المستخدم وماتعملش تعديل
-  if (newPrice === oldPrice) {
-    Swal.fire("😊 نفس السعر القديم، مفيش أي تغيير", "", "info");
-    return;
+    const data = await res.json();
+    if (res.ok) {
+      Swal.fire("🗑️ تم الحذف", `${item} اتحذف`, "success");
+      loadMenu();
+    } else {
+      Swal.fire("❌ خطأ", data.message || "فشل في الحذف", "error");
+    }
+  } catch {
+    Swal.fire("❌ خطأ في الاتصال", "", "error");
   }
-
-  // ✅ تعديل السعر
-  await fetch("/menu", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ item: name, price: newPrice }),
-  });
-
-  Swal.fire("✅ تم التعديل", "", "success");
-  fetchMenu();
 }
 
-fetchMenu();
+// عند الضغط على "تعديل" يملأ الحقول
+function editItem(item, price) {
+  document.getElementById("itemName").value = item;
+  document.getElementById("itemPrice").value = price;
+}
+
+// تحميل المنيو تلقائيًا عند فتح الصفحة
+window.addEventListener("load", loadMenu);
+
+
+
+

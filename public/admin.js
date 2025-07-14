@@ -1,12 +1,16 @@
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLzvoKFTIrQ4AJk_2dTnox1HcZTh90FRzxDjoVmA5gsVqV7da7eZ-RPZDLwx3V2VrPRA/exec";
+
 let prices = {};
 
+// ✅ تحميل الأسعار (المنيو)
 async function fetchPrices() {
-  const res = await fetch("/menu");
+  const res = await fetch(`${SCRIPT_URL}?action=menu`);
   prices = await res.json();
 }
 
+// ✅ بدء الطلبات
 async function startSession() {
-  await fetch("/start", { method: "POST" });
+  await fetch(`${SCRIPT_URL}?action=start`, { method: "POST" });
   Swal.fire({
     icon: "success",
     title: "تم فتح الطلبات!",
@@ -14,8 +18,9 @@ async function startSession() {
   });
 }
 
+// ✅ إيقاف الطلبات
 async function stopSession() {
-  await fetch("/stop", { method: "POST" });
+  await fetch(`${SCRIPT_URL}?action=stop`, { method: "POST" });
   Swal.fire({
     icon: "error",
     title: "تم إيقاف الطلبات",
@@ -23,8 +28,9 @@ async function stopSession() {
   });
 }
 
+// ✅ تحميل الطلبات
 async function fetchOrders() {
-  const res = await fetch("/orders");
+  const res = await fetch(`${SCRIPT_URL}?action=orders`);
   const data = await res.json();
 
   let totalSandwiches = 0;
@@ -88,9 +94,7 @@ async function fetchOrders() {
   <h2>💰 الإجمالي:</h2>
   <ul>
     <li>🥪 إجمالي السندوتشات: ${totalSandwiches} جنيه</li>
-    <li>🚚 إجمالي الدليفري (${deliveryFee} × ${
-    data.length
-  }): ${deliveryTotal} جنيه</li>
+    <li>🚚 إجمالي الدليفري (${deliveryFee} × ${data.length}): ${deliveryTotal} جنيه</li>
     <li><strong>💵 الإجمالي الكلي: ${totalAll} جنيه</strong></li>
   </ul>
 </div>
@@ -99,8 +103,10 @@ async function fetchOrders() {
   document.getElementById("orders").innerHTML = result;
 }
 
+// ✅ التحديث التلقائي كل 2 ثانية
 setInterval(() => {
   fetchPrices().then(fetchOrders);
 }, 2000);
 
 fetchPrices().then(fetchOrders);
+
