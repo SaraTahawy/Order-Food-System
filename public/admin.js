@@ -1,4 +1,4 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLzvoKFTIrQ4AJk_2dTnox1HcZTh90FRzxDjoVmA5gsVqV7da7eZ-RPZDLwx3V2VrPRA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzscxkVtOLgXIwVUdQu0xsiOxpKFYRvqnrvYL207moaWa4L0InjwyWx_MEzs1O8XAhGdA/exec";
 
 let prices = {};
 
