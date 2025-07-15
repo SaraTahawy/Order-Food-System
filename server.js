@@ -169,7 +169,11 @@ app.delete("/menu", (req, res) => {
 });
 
 // ✅ تشغيل السيرفر
+// app.listen(PORT, () => {
+//   console.log(`👨‍💻 Admin Panel: http://localhost:${PORT}/admin.html`);
+//   console.log(`🛒 User Orders: http://localhost:${PORT}/index.html`);
+// });
 app.listen(PORT, () => {
-  console.log(`👨‍💻 Admin Panel: http://localhost:${PORT}/admin.html`);
-  console.log(`🛒 User Orders: http://localhost:${PORT}/index.html`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
+
