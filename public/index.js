@@ -1,5 +1,3 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzscxkVtOLgXIwVUdQu0xsiOxpKFYRvqnrvYL207moaWa4L0InjwyWx_MEzs1O8XAhGdA/exec";
-
 
 
 const form = document.getElementById("orderForm");
@@ -80,7 +78,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const checkRes = await fetch(`${SCRIPT_URL}?action=check-order`, {
+  const checkRes = await fetch("/check-order", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName }),
@@ -110,7 +108,7 @@ form.addEventListener("submit", async (e) => {
 
       // ✅ يسجل الأوردر
       const note = noteInput.value.trim();
-      const res = await fetch(`${SCRIPT_URL}?action=order`,{
+       const res = await fetch("/order",{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: fullName, items, note }),
@@ -149,7 +147,7 @@ form.addEventListener("submit", async (e) => {
 // التحقق من حالة السيشن
 async function checkSession() {
   try {
-   const res = await fetch(`${SCRIPT_URL}?action=session-status`);
+ const res = await fetch("/session-status");
     const data = await res.json();
 
     if (data.sessionOpen) {
@@ -183,7 +181,7 @@ async function checkIfHasOrder(silent = false) {
   }
 
   try {
-   const res = await fetch(`${SCRIPT_URL}?action=check-order-details`, {
+   const res = await fetch("/check-order-details", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName }),
@@ -229,7 +227,7 @@ async function cancelOrder() {
   }
 
   try {
-    const res = await fetch(`${SCRIPT_URL}?action=check-order-details`, {
+  const res = await fetch("/check-order-details", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName }),
@@ -257,7 +255,7 @@ async function cancelOrder() {
 
     if (!result.isConfirmed) return;
 
-    const cancelRes = await fetch(`${SCRIPT_URL}?action=cancel-order`,{
+   const cancelRes = await fetch("/cancel-order",{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName }),
@@ -292,7 +290,7 @@ async function enableEdit() {
   }
 
   try {
-   const res = await fetch(`${SCRIPT_URL}?action=check-order-details`, {
+  const res = await fetch("/check-order-details",{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName }),
@@ -351,7 +349,7 @@ async function sendOrder(items) {
   const note = noteInput.value.trim();
 
   try {
-   const res = await fetch(`${SCRIPT_URL}?action=order`, {
+  const res = await fetch("/order",{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName, items, note }),
@@ -412,7 +410,7 @@ async function getOrderItems() {
   }
 
   try {
-   const res = await fetch(`${SCRIPT_URL}?action=check-order-details`, {
+   const res = await fetch("/check-order-details", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: fullName }),
@@ -446,7 +444,7 @@ function arraysEqual(a, b) {
 // كل 3 ثواني يتشيك على السيشن
 async function loadMenuItems() {
   try {
-    const res = await fetch(`${SCRIPT_URL}?action=menu`);
+const res = await fetch("/menu");
     const menu = await res.json();
     prices = menu;
 

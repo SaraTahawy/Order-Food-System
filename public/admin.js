@@ -1,16 +1,16 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzscxkVtOLgXIwVUdQu0xsiOxpKFYRvqnrvYL207moaWa4L0InjwyWx_MEzs1O8XAhGdA/exec";
+
 
 let prices = {};
 
 // ✅ تحميل الأسعار (المنيو)
 async function fetchPrices() {
-  const res = await fetch(`${SCRIPT_URL}?action=menu`);
+ const res = await fetch("/menu");
   prices = await res.json();
 }
 
 // ✅ بدء الطلبات
 async function startSession() {
-  await fetch(`${SCRIPT_URL}?action=start`, { method: "POST" });
+   await fetch("/start", { method: "POST" });
   Swal.fire({
     icon: "success",
     title: "تم فتح الطلبات!",
@@ -20,7 +20,7 @@ async function startSession() {
 
 // ✅ إيقاف الطلبات
 async function stopSession() {
-  await fetch(`${SCRIPT_URL}?action=stop`, { method: "POST" });
+  await fetch("/stop", { method: "POST" });
   Swal.fire({
     icon: "error",
     title: "تم إيقاف الطلبات",
@@ -30,7 +30,7 @@ async function stopSession() {
 
 // ✅ تحميل الطلبات
 async function fetchOrders() {
-  const res = await fetch(`${SCRIPT_URL}?action=orders`);
+const res = await fetch("/orders");
   const data = await res.json();
 
   let totalSandwiches = 0;

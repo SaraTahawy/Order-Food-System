@@ -1,8 +1,8 @@
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzscxkVtOLgXIwVUdQu0xsiOxpKFYRvqnrvYL207moaWa4L0InjwyWx_MEzs1O8XAhGdA/exec";
+
 
 // ✅ تحميل المنيو
 async function fetchMenu() {
-  const res = await fetch(`${SCRIPT_URL}?action=menu`);
+  const res = await fetch("/menu");
   const menu = await res.json();
 
   let result = "";
@@ -40,7 +40,7 @@ async function addItem() {
 
   if (!result.isConfirmed) return;
 
-  await fetch(`${SCRIPT_URL}?action=menu`, {
+  await fetch("/menu", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ item: name, price }),
@@ -64,11 +64,12 @@ async function deleteItem(name) {
 
   if (!result.isConfirmed) return;
 
-  await fetch(`${SCRIPT_URL}?action=delete-menu`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ item: name }),
-  });
+await fetch("/menu", {
+  method: "DELETE", 
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ item: name }),
+});
+
 
   Swal.fire("✅ تم الحذف", "", "success");
   fetchMenu();
@@ -97,7 +98,7 @@ async function editItem(name, oldPrice) {
     return;
   }
 
-  await fetch(`${SCRIPT_URL}?action=menu`, {
+  await fetch("/menu", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ item: name, price: newPrice }),
